@@ -124,7 +124,7 @@ type
 
 int main()
 {
-	yyparse();
+    yyparse();
 }
 void yyerror (char  *s)
 {
@@ -163,80 +163,80 @@ void print_header(char * str)
 
 void log_print_declist(char *str)
 {
-	FILE *logfile = fopen("logfile.log", "a"); //Open log file
-    	fprintf(logfile, "at %s ", __TIME__);
-	fprintf(logfile, "Printing declaration list %s \n",str);
-    	fclose(logfile); //close log file
+    FILE *logfile = fopen("logfile.log", "a"); //Open log file
+    fprintf(logfile, "at %s ", __TIME__);
+    fprintf(logfile, "Printing declaration list %s \n",str);
+    fclose(logfile); //close log file
 }
 
 void print_cout(char * str)
 {
-	FILE *logfile = fopen("logfile.log", "a"); //Open log file
-    	fprintf(logfile, "at %s ", __TIME__);
-	fprintf(logfile, "Printing cout declarations %s \n",str);
-    	fclose(logfile); //close log file
-	FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
-	fprintf(CPP_final_file,"cout << %s << endl;\n", str);
-	fclose(CPP_final_file); //close cpp file
+    FILE *logfile = fopen("logfile.log", "a"); //Open log file
+    fprintf(logfile, "at %s ", __TIME__);
+    fprintf(logfile, "Printing cout declarations %s \n",str);
+    fclose(logfile); //close log file
+    FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
+    fprintf(CPP_final_file,"cout << %s << endl;\n", str);
+    fclose(CPP_final_file); //close cpp file
 }
 
 void print_assign(char *str)
 {
-	FILE *logfile = fopen("logfile.log", "a"); //Open log file
-    	fprintf(logfile, "at %s ", __TIME__);
-	fprintf(logfile, "Printing assignment declarations %s \n",str);
-    	fclose(logfile);
-	FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
-	fprintf(CPP_final_file, "%s;\n",str);
-	fclose(CPP_final_file); //close cpp file
+    FILE *logfile = fopen("logfile.log", "a"); //Open log file
+    fprintf(logfile, "at %s ", __TIME__);
+    fprintf(logfile, "Printing assignment declarations %s \n",str);
+    fclose(logfile);
+    FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
+    fprintf(CPP_final_file, "%s;\n",str);
+    fclose(CPP_final_file); //close cpp file
 }
 
 void print_end()
 {
-	FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
-	fprintf(CPP_final_file, "return 0;\n}\n");
-   	 fclose(CPP_final_file); //close cpp file
+    FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
+    fprintf(CPP_final_file, "return 0;\n}\n");
+    fclose(CPP_final_file); //close cpp file
 }
 
 void checkID(char *idName)
 {
-	int i=0;
-	bool valid=true;
-	for(i=0; i <counter;i++)
+    int i=0;
+    bool valid=true;
+    for(i=0; i <counter;i++)
+    {
+        if(strcmp(idName,ID[i])!=0)
 	{
-		if(strcmp(idName,ID[i])!=0)
-		{
-			valid=false;
-		}
-		else
-		{
-			valid=true;
-			break;
-		}	
+	    valid=false;
 	}
-	if(valid==false)
-		 yyerror(idName);
+	else
+	{
+	    valid=true;
+	    break;
+	}	
+    }
+    if(valid==false)
+    yyerror(idName);
 
 }
 
 void saveID(char *idName)
 {	
-	ID[counter] = idName;
-	counter++;
+    ID[counter] = idName;
+    counter++;
 	
-	FILE *logfile = fopen("logfile.log", "a"); //Open log file
-	fprintf(logfile, "Printing known variable: %s \n",idName);
-    	fclose(logfile); //close log file
+    FILE *logfile = fopen("logfile.log", "a"); //Open log file
+    fprintf(logfile, "Printing known variable: %s \n",idName);
+    fclose(logfile); //close log file
 }
 
 void print_variables(char ** Vars, int size)
 {
-	int i = 0;
-	FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
+    int i = 0;
+    FILE *CPP_final_file = fopen("abc13.cpp", "a"); //Open cpp file
 
-	for(i=0;i< size-1;i++)
-		fprintf(CPP_final_file,"%s, ",Vars[i]);
+    for(i=0;i< size-1;i++)
+	fprintf(CPP_final_file,"%s, ",Vars[i]);
 
-	fprintf(CPP_final_file,"%s;\n",Vars[size-1]);
-	fclose(CPP_final_file); //close cpp file
+    fprintf(CPP_final_file,"%s;\n",Vars[size-1]);
+    fclose(CPP_final_file); //close cpp file
 }
