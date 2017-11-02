@@ -1,4 +1,3 @@
-
 Commands to Execute and Run on Linux Systems:
 cd /projectdirectory
 touch outputfile.txt
